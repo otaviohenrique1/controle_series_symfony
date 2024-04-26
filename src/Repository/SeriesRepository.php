@@ -2,9 +2,11 @@
 
 namespace App\Repository;
 
+use App\DTO\SeriesCreateFormInput;
 use App\Entity\Series;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Exception;
 
 /**
  * @extends ServiceEntityRepository<Series>
@@ -21,6 +23,25 @@ class SeriesRepository extends ServiceEntityRepository
         parent::__construct($registry, Series::class);
     }
 
+    // public function add(SeriesCreateFormInput $input) {
+    //     $entityManager = $this->getEntityManager();
+
+    //     $series = new Series($input->seriesName);
+    //     $entityManager->persist($series);
+    //     $entityManager->flush();
+
+    //     try {
+    //         $this->seasonRepository->addSeasonsQuantity($input->seasonsQuantity, $series->getId());
+    //         $seasons = $this->seasonRepository->findBy(['series' => $series]);
+    //         $this->episodeRepository->addEpisodesPerSeason($input->episodesPerSeason, $seasons);
+    //     } catch (Exception $e) {
+    //         $this->remove($series, true);
+    //     }
+
+    //     return $series;
+    // }
+
+    
     public function add(Series $entity, bool $flush = false): void {
         $this->getEntityManager()->persist($entity);
 
@@ -28,6 +49,7 @@ class SeriesRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+   
 
     public function remove(Series $entity, bool $flush = false): void {
         $this->getEntityManager()->remove($entity);
