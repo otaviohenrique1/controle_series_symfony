@@ -5,6 +5,8 @@
 {% block body %}
 {% if error %}
     <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+{% else %}
+    <a href="{{ path('app_login') }}">Entrar</a>
 {% endif %}
 
 <form action="{{ path('app_login') }}" method="post">
@@ -22,5 +24,6 @@
     <input type="hidden" name="_target_path" value="/account"/> #}
 
     <button type="submit" class="btn btn-primary">Login</button>
+    <a href="{{ path('app_register') }}" class="btn btn-primary">Cadastrar</a>
 </form>
 {% endblock %}
